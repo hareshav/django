@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,get_user_model
 from django.http import HttpResponse
 # Create your views here.
 def index(request):
@@ -16,13 +16,20 @@ def signup(request):
     return render(request,'signup.html')
 def signin(request):
     if request.method=='POST':
-        uname=request.POST.get('username')
+        umail=request.POST.get('usermail')
         pword=request.POST.get('password')
-        print(uname,pword)
-        user=authenticate(request,username=uname,password=pword)
-        if user is not None:
-            login(request,user)
-            return HttpResponse("Login successful welcome"+uname)
-        else:
-            return HttpResponse("Login failed")
+        # username=User.objects.get(email=umail).username
+        #error raised when wrong password is provided
+        # usermodel=get_user_model()
+        try:
+            username=User.objects.get(email=umail.lower()).username
+            user1=authenticate(request,username=username,password=pword)
+            if user1 is not None:
+                login(request,user1)
+                return HttpResponse("login  not failed")
+            else:
+                return HttpResponse("password incorrect")
+        except Exception as e:
+            # return HttpResponse("login failed")
+            print(e)
     return render(request,'signin.html')
