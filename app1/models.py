@@ -5,3 +5,4 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class UserModels(AbstractUser):
     location=models.CharField(max_length=100,blank=True)
+
