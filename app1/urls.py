@@ -4,5 +4,7 @@ urlpatterns=[
     path('', views.index,name='index'),
     path('signup/', views.signup,name="signup"),
     path('signin/', views.signin,name="signin"),
-    # path('signout/', views.signout,name="signout"),
+    path('home/', views.home,name="home"),
+    path('logout/',views.logoutuser,name="logout"),
+    path('home/apply/',views.apply,name="apply"),
 ]

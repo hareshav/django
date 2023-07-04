@@ -1,0 +1,23 @@
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <form method="post" action="">
+        {% csrf_token %}
+        <h2>home</h2>
+        <button type="sumbit">
+            <a href="{% url 'logout' %}">
+                logout
+            </a>
+        </button>
+        <button type="sumbit">
+            <a href="apply">
+                apply
+            </a>
+        </button>
+
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>psg itech</title>
+    </head>
+    <body>
+        <form action="" method="post">
+            {% csrf_token %}
+            <label>Enter Name : </label>
+            <input type="text" placeholder="Name" name='name' required><br>
+            <label>Service</label>
+            <select required name="service">
+                <option >samayal</option>
+                <option >carpenter</option>
+                <option >plumber</option>
+                <option ></option>
+                <option >security</option>
+            </select><br>
+            <label>location</label>
+            <input type="text" placeholder="Location" name="location" required><br>
+            <label>Time available:</label><br>
+            <label>From:</label>
+            <input type="time" required name="fromtime">
+            <label>To:</label>
+            <input type="time" required name="totime">
+            <button type="sumbit">Sumbit</button>
+        </form>
+    </body>
+</html>
