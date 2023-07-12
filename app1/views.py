@@ -39,6 +39,7 @@ def signin(request):
 def home(request):
     return render(request,'home.html')
 def apply(request):
+
     if request.method=='POST':
         name=request.POST.get('name')
         service=request.POST.get('service')
@@ -46,6 +47,15 @@ def apply(request):
         fromtime=request.POST.get('fromtime')
         totime=request.POST.get('totime')
         print(name,fromtime,totime)
+        local=LocalService()
+        local.email=request.user.email
+        local.password=request.user.password
+        local.name=name
+        local.services=service
+        local.location=location
+        local.from_time=fromtime
+        local.to_time=totime
+        local.save()
     return render(request,'application.html')
 def logoutuser(request):
     logout(request)
