@@ -8,13 +8,13 @@
             {% csrf_token %}
             <label>Enter Name : </label>
             <input type="text" placeholder="Name" name='name' required><br>
+            local:<input type="radio" name="stype" value="local"checked>
+            global:<input type="radio" name="stype" value="global"  ><br>
             <label>Service</label>
             <select required name="service">
-                <option >samayal</option>
-                <option >carpenter</option>
-                <option >plumber</option>
-                <option ></option>
-                <option >security</option>
+                {% for service in global %}
+                    <option>{{service}}</option>
+                {% endfor %}
             </select><br>
             <label>location</label>
             <input type="text" placeholder="Location" name="location" required><br>

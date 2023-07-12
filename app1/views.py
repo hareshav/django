@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 # from django.contrib.auth.models import AbstractUser
-from .models import UserModels,LocalService
+from .models import UserModels,LocalService,RemoteService
+from .services import globaldisplay,localdisplay
 from django.contrib.auth import authenticate,login,get_user_model,logout
 from django.http import HttpResponse
 # Create your views here.
@@ -15,7 +16,8 @@ def signup(request):
         user1=UserModels.objects.create_user(uname,email,pword)
         user1.location=location
         user1.save()
-        return HttpResponse("USER CREATED")
+        login(request,user1)
+        return redirect('home')
     return render(request,'signup.html')
 def signin(request):
     if request.method=='POST':
@@ -39,24 +41,33 @@ def signin(request):
 def home(request):
     return render(request,'home.html')
 def apply(request):
-
     if request.method=='POST':
+        type=request.POST.get('stype')
         name=request.POST.get('name')
         service=request.POST.get('service')
-        location=request.POST.get('location')
         fromtime=request.POST.get('fromtime')
         totime=request.POST.get('totime')
-        print(name,fromtime,totime)
-        local=LocalService()
-        local.email=request.user.email
-        local.password=request.user.password
-        local.name=name
-        local.services=service
-        local.location=location
-        local.from_time=fromtime
-        local.to_time=totime
-        local.save()
-    return render(request,'application.html')
+        if type=='local':
+            location=request.POST.get('location')
+            local=LocalService()
+            local.email=request.user.email
+            local.password=request.user.password
+            local.name=name
+            local.services=service
+            local.location=location
+            local.from_time=fromtime
+            local.to_time=totime
+            local.save()
+        else:
+            remote=RemoteService()
+            remote.email=request.user.email
+            remote.password=request.user.password
+            remote.name=name
+            remote.services=service
+            remote.from_time=fromtime
+            remote.to_time=totime
+            remote.save()
+    return render(request,'application.html',{'global':globaldisplay,'local':localdisplay})
 def logoutuser(request):
     logout(request)
     return redirect('index')
