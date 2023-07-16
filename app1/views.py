@@ -10,7 +10,7 @@ def index(request):
 def signup(request):
     if request.method=='POST':
         uname=request.POST.get('fname')
-        uname+=request.POST.get('lname')
+        uname+=' '+request.POST.get('lname')
         pword=request.POST.get('password')
         email=request.POST.get('email')
         location='hello'

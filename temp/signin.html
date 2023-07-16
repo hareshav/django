@@ -93,7 +93,7 @@
         <input type="password" id="password" class="w-100" name="password">
         <br>
         <br>
-        <button type="submit" id="login-btn" class=" w-100 mb-4 bg-dark text-white" onclick=" return validate(e)">Continue with Email</button>
+        <button id="login-btn" class=" w-100 mb-4 bg-dark text-white">Continue with Email</button>
       </form>
       <div class="text-center mb-4" style="background: linear-gradient(180deg, rgba(0,0,0,0) calc(50% - 1px), #8c9196 calc(50%), rgba(0,0,0,0) calc(50% + 1px));">
         <span class="or bg-white p-4">or</span>
@@ -125,8 +125,8 @@
     </div>
   </div>
   <script>
-    // var submit = document.getElementById('login-btn');
-    // submit.addEventListener('click', validate);
+    var submit = document.getElementById('login-btn');
+    submit.addEventListener('click', validate);
     function validate(e){
       e.preventDefault();
       var email = document.getElementById('email').value;
@@ -137,10 +137,12 @@
       var email_valid = '/S+@\S+\.\S+/';
       if (email_valid.match(email) ) {
         email_hidden.style.display = 'block';
-        document.login-form
+        
+
       }
       else{
         email_hidden.style.display = '';
+        document.getElementById('login-form').submit();
         return ;
       }
       // console.log(pass);

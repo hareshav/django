@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ohvp8^qub*4@dkf1wawat9u#9m$q=v2_x2p1)ir*3x=3n9ae5w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','https://freelancerwebsite.azurewebsites.net/']
+ALLOWED_HOSTS = ['127.0.0.1','freelancerwebsite.azurewebsites.net']
 
 
 # Application definition
@@ -52,6 +52,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'myproject.urls'
+
+CSRF_COOKIE_SECURE = False
 
 TEMPLATES = [
     {
@@ -123,3 +125,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_TRUSTED_ORIGINS = ['https://freelancerwebsite.azurewebsites.net/']

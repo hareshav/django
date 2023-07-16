@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/5fdbd7c8-0bd6-4f24-8098-6dad407d158f/resourceGroups/haresh-website/providers/Microsoft.Web/sites/freelancerwebsite",
+    "appService.deploySubpath": "."
+}
