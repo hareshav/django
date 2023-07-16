@@ -8,7 +8,8 @@ class UserModels(AbstractUser):
 class LocalService(AbstractBaseUser):
     email = models.EmailField(blank=False)
     name=models.CharField(max_length=100,blank=False)    
-    location=models.CharField(max_length=100,blank=False,default=None)
+    x_cood=models.FloatField(blank=False,default=None)
+    y_cood=models.FloatField(blank=False,default=None)
     services=models.CharField(max_length=100,choices=local_choice,blank=False)
     from_time=models.TimeField(blank=True,default=None)
     to_time=models.TimeField(blank=True,default=None)
@@ -17,7 +18,7 @@ class LocalService(AbstractBaseUser):
     REQUIRED_FIELDS = ['first_name', 'last_name']
     AbstractBaseUser.password="haresh"
     def __str__(self):
-        return self.email
+        return self.name
 class RemoteService(AbstractBaseUser):
     email = models.EmailField(blank=False)
     name=models.CharField(max_length=100,blank=False)    

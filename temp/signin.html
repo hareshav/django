@@ -81,7 +81,7 @@
         <br>
         <br>
       </div>
-      <form class="login-content" id="login-form" action="" method="post">
+      <form class="login-content" id="login-form" action="" method="post" name="login-form">
         {% csrf_token %}
         <h1 class="login-heading mb-1">Log in</h1>
         <p class="sub-heading">Continue with ensel</p>
@@ -93,7 +93,7 @@
         <input type="password" id="password" class="w-100" name="password">
         <br>
         <br>
-        <button type="submit" id="login-btn" class=" w-100 mb-4 bg-dark text-white">Continue with Email</button>
+        <button type="submit" id="login-btn" class=" w-100 mb-4 bg-dark text-white" onclick=" return validate(e)">Continue with Email</button>
       </form>
       <div class="text-center mb-4" style="background: linear-gradient(180deg, rgba(0,0,0,0) calc(50% - 1px), #8c9196 calc(50%), rgba(0,0,0,0) calc(50% + 1px));">
         <span class="or bg-white p-4">or</span>
@@ -115,7 +115,7 @@
           <i class="fab fa-facebook"></i>
           Continue with Facebook
         </button>
-        <p class="new">New to Ensel? <span id="new-anchor">Get Started</span></p>
+        <p class="new">New to Ensel? <span id="new-anchor"><a href="{% url 'signup' %}">Get Started</a></span></p>
       </div>
       <div class="login-footer d-flex flex-row justify-content-end">
         <p id="footer" class="mr-3">Help</p>
@@ -137,18 +137,20 @@
       var email_valid = '/S+@\S+\.\S+/';
       if (email_valid.match(email) ) {
         email_hidden.style.display = 'block';
-        
+        document.login-form
       }
       else{
         email_hidden.style.display = '';
+        return ;
       }
-      console.log(pass);
-      if (pass === '') {
-        pass_hidden.style.display = 'block';
-      }
-      else{
-        pass_hidden.style.display = ''
-      }
+      // console.log(pass);
+      // if (pass === '') {
+      //   pass_hidden.style.display = 'block';
+      // }
+      // else{
+      //   pass_hidden.style.display = ''
+      // }
+      event.target.submit();
     }
   </script>
 </body>

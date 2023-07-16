@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>psg itech</title>
+</head>
+<body>
+    <h1>user's Location</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="radio" name="stype" value="local" checked>local
+        <br>
+        <input type="radio" name="stype" value="global">global
+        <br>
+        <select required name="service" >
+            {% for service in local %}
+            <option>{{service}}</option>
+            {% endfor %}
+        </select><br>
+        <input type="text" placeholder="X COORDINATES" name="x_cood" >
+        <input type="text" placeholder="Y COORDINATES" name="y_cood" ><br>
+        <button onclick="getlocation()">Get Location</button>
+        <p id="lat">here is your location</p><p id="long"></p>
+        <button type="submit">Search</button>
+    </form>
+    <script>
+        const getlocation = () => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        let lat = position.coords.latitude;
+                        let long = position.coords.longitude;
+                        document.getElementById("lat").innerHTML = lat;
+                        document.getElementById("long").innerHTML = long;
+                    }
+                )
+                }
+            }
+    </script>
+</body>
+</html>

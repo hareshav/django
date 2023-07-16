@@ -40,6 +40,14 @@ def signin(request):
     return render(request,'signin.html')
 def home(request):
     return render(request,'home.html')
+def search(request):
+    if request.method=='POST':
+        type=request.POST.get('stype')
+        service=request.POST.get('service')
+        x_cood=request.POST.get('x_cood')
+        y_cood=request.POST.get('y_cood')
+        print(type,service,x_cood,y_cood)
+    return render(request,'search.html',{'global':globaldisplay,'local':localdisplay})
 def apply(request):
     if request.method=='POST':
         type=request.POST.get('stype')
@@ -48,13 +56,15 @@ def apply(request):
         fromtime=request.POST.get('fromtime')
         totime=request.POST.get('totime')
         if type=='local':
-            location=request.POST.get('location')
+            x_cood=request.POST.get('x_cood')
+            y_cood=request.POST.get('y_cood')
             local=LocalService()
             local.email=request.user.email
             local.password=request.user.password
             local.name=name
             local.services=service
-            local.location=location
+            local.x_cood=x_cood
+            local.y_cood=y_cood
             local.from_time=fromtime
             local.to_time=totime
             local.save()
