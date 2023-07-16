@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>psg itech</title>
 </head>
-
 <body>
     <form action="" method="post">
         {% csrf_token %}
@@ -31,10 +29,8 @@
                         let long = position.coords.longitude;
                         document.getElementById("lat").innerHTML = lat;
                         document.getElementById("long").innerHTML = long;
-
                     })
                 }
-
             }
         </script>
         <label>Time available:</label><br>

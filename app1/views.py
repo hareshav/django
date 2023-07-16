@@ -9,10 +9,11 @@ def index(request):
     return render(request,'index.html')
 def signup(request):
     if request.method=='POST':
-        uname=request.POST.get('username')
+        uname=request.POST.get('fname')
+        uname+=request.POST.get('lname')
         pword=request.POST.get('password')
         email=request.POST.get('email')
-        location=request.POST.get('location')
+        location='hello'
         user1=UserModels.objects.create_user(uname,email,pword)
         user1.location=location
         user1.save()
