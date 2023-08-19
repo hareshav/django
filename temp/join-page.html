@@ -1,0 +1,170 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="join.css">
+    <script src="join.js"></script>
+    <script src="https://kit.fontawesome.com/20c5629a29.js" crossorigin="anonymous"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script>
+        var loc = document.getElementById('get-loc');
+        var x = document.querySelector('#x-cord').value;
+        var y = document.querySelector('#y-cord').value;
+        var join = document.querySelector('#join-btn');
+        loc.addEventListener('click', getLocation);
+        join.addEventListener('click', submit);
+        function getLocation(e) {
+            e.preventDefault();
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+        function geoSuccess(position) {
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+            x = lat;
+            y = lng;
+        }
+        function geoError() {
+            alert("Geocoder failed.");
+        }
+        function submit(e) {
+            e.preventDefault();
+            let name = document.getElementById('name').value;
+            let phno = document.getElementById('phno').value;
+            let selector = document.getElementById('selector').value;
+            let location = document.querySelector('#location').value;
+            let xcord = document.getElementById('x-cord').value;
+            let ycord = document.getElementById('y-cord').value;
+            let t_from = document.querySelector('#t-from');
+            let t_to = document.querySelector('#t-to');
+
+            if (!(name === '' || phno === '' || selector === '' || xcord === '' || ycord === '' || t_from === '' || t_to === '' || validatePhoneNumber(phno))) {
+                document.getElementById('join-form').submit();
+            }
+            else {
+                alert('Enter valid Phone number');
+            }
+        }
+        function validatePhoneNumber(phoneNumber) {
+            if (phoneNumber.length !== 10) {
+                return false;
+            }
+            if (!phoneNumber.match(/[^0-9]/)) {
+                return false;
+            }
+            return true;
+        }
+
+
+
+
+    </script>
+    <style>
+        body {
+            background: #ec008c;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #fc6767, #ec008c);
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #fc6767, #ec008c);
+        }
+
+        .join-card {
+            border-radius: 10px;
+            width: min(100%, 586px);
+            font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+        }
+
+        .join-content {
+            font-weight: bold;
+        }
+
+        #footer:hover {
+            text-decoration: underline;
+        }
+
+        .box {
+            height: 32px;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .button {
+            border-radius: 5px;
+            border-width: 0px;
+            height: 40px;
+            background: #ec008c;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #fc6767, #ec008c);
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #fc6767, #ec008c);
+            cursor: pointer;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="register-page">
+        <div class="p-5 d-flex flex-row justify-content-center ">
+            <div class="join-card bg-white p-4 shadow">
+                <h1 class="join-heading mb-1">Register</h1>
+                <br>
+                <div class="join-header text-left">
+                    <form class="join-content" id="join-form">
+                        <p class="name-heading mb-0">Name:</p>
+                        <!---<p id="hidden-email-alert" class="p-3 bg-danger">Enter Valid Email</p>--->
+                        <input type="text" id="name" class="mb-3 w-100 box">
+
+                        <p class="phno-heading mb-0">Phone No:</p>
+                        <!---<p id="hidden-email-alert" class="p-3 bg-danger">Enter Valid Email</p>--->
+                        <input type="number" id="phno" class="mb-3 w-100 box">
+
+                        <p class="selector-heading mb-0">Service:</p>
+                        <select required class="w-100 box" id="selector">
+                            <option>Cook</option>
+                            <option>Carpenter</option>
+                            <option>Plumber</option>
+                            <option>Electrition</option>
+                            <option>Security</option>
+                        </select>
+                        <br>
+                        <br>
+                        <p class="Location mb-0">Location: (Optional)</span></p>
+                        <!---<p id="hidden-pass-alert" class="p-3 bg-danger">Enter Valid Password</p>--->
+                        <input type="text" id="location" class="w-100 box mb-2">
+                        <input type="text" id="x-cord" hidden></input>
+                        <input type="text" id="y-cord" hidden></input>
+                        <p class="mb-1">Use this to get your locaton instantaniously</p>
+                        <button id="get-loc" class="btn w-24">Get Location</button>
+                        <br>
+                        <br>
+                        <label>From:</label>
+                        <input type="time" class="mr-3" id="t-from">
+                        <label>To:</label>
+                        <input type="time" id="t-to">
+                        <div class="mb-4 mt-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Description:</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+                        </div>
+
+                        <button id="join-btn" class=" w-100 mb-4 button text-white">Register</button>
+
+                    </form>
+                    <div class="login-footer d-flex flex-row justify-content-end">
+                        <a id="footer" class="mr-3">Help</a>
+                        <a id="footer" class="mr-3">Privacy</a>
+                        <a id="footer">Terms</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="join.js"></script>
+</body>
+
+</html>

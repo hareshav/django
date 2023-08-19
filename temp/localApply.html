@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Search For Services</title>
+    <title>Search For Local Services</title>
 </head>
 <body>
     <h1>user's Location</h1>
     <form action="" method="post">
         {% csrf_token %}
-        <input type="radio" name="stype" value="local" checked>local
-        <br>
-        <input type="radio" name="stype" value="global">global
-        <br>
+        
         <select required name="service" >
             {% for service in local %}
             <option>{{service}}</option>

@@ -7,5 +7,6 @@ urlpatterns=[
     path('', views.home,name="home"),
     path('logout/',views.logoutuser,name="logout"),
     path('apply/',views.apply,name="apply"),
-    path('search/',views.search,name='search'),
+    path('localsearch/',views.searchlocal,name='localsearch'),
+    path('remotesearch/',views.searchglobal,name='remotesearch'),
 ]

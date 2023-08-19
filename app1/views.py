@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+import uuid
 # from django.contrib.auth.models import AbstractUser
 from .models import UserModels,LocalService,RemoteService
 from .services import globaldisplay,localdisplay
@@ -41,15 +42,72 @@ def signin(request):
     return render(request,'signin.html')
 def home(request):
     return render(request,'home.html')
-def search(request):
+def searchlocal(request):
+    local_list=[]
+    for i in LocalService.objects.all():
+        d={}
+        d['id']=i.id
+        d['Name']=i.name
+        d['X cood']=i.x_cood
+        d['Y cood']=i.y_cood
+        d['email']=i.email
+        d['services']=i.services
+        d['from']=i.from_time
+        d['to']=i.to_time
+        local_list.append(d)
     if request.method=='POST':
+        button=request.POST.get('button')
         type=request.POST.get('stype')
-        service=request.POST.get('service')
-        x_cood=request.POST.get('x_cood')
-        y_cood=request.POST.get('y_cood')
-        print(type,service,x_cood,y_cood)
-    return render(request,'search.html',{'global':globaldisplay,'local':localdisplay})
+        if button=='search':
+            service=request.POST.get('service')
+            x_cood=request.POST.get('x_cood')
+            y_cood=request.POST.get('y_cood')
+        if button!='y':
+            if request.user.email=='h@g.com':
+                return redirect('signin')
+            print((button))
+            datetime=request.POST.get('from')
+            duration=request.POST.get('duration')
+            print(datetime,duration)
+            
+            local_service_instance = LocalService.objects.get(id=button)
+            request.user.onservicelocal=local_service_instance
+            request.user.save()
+            return HttpResponse("service added")    
+    return render(request,'localApply.html',{'local':localdisplay,'localService':local_list})
+def searchglobal(request):
+    global_list=[]
+    for i in RemoteService.objects.all():
+        d={}
+        d['id']=i.id
+        d['Name']=i.name
+        d['email']=i.email
+        d['services']=i.services
+        d['from']=i.from_time
+        d['to']=i.to_time
+        global_list.append(d)
+    if request.method=='POST':
+        button=request.POST.get('button')
+        type=request.POST.get('stype')
+        if button=='search':
+            service=request.POST.get('service')
+            x_cood=request.POST.get('x_cood')
+            y_cood=request.POST.get('y_cood')
+        if button!='y':
+            if request.user.email=='h@g.com':
+                return redirect('signin')
+            print((button))
+            datetime=request.POST.get('from')
+            duration=request.POST.get('duration')
+            print(datetime,duration)
+            remote_service_instance = RemoteService.objects.get(id=button)
+            request.user.onserviceglobal=remote_service_instance
+            request.user.save()
+            return HttpResponse("service added")    
+    return render(request,'remotesearch.html',{'global':globaldisplay,'globalService':global_list})
 def apply(request):
+    if request.user.email=='h@g.com':
+        return redirect('signin')
     if request.method=='POST':
         type=request.POST.get('stype')
         name=request.POST.get('name')
