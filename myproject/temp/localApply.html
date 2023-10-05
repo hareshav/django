@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search For Local Services</title>
+</head>
+<body>
+    <h1>user's Location</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        
+        <select required name="service" >
+            {% for service in local %}
+            <option>{{service}}</option>
+            {% endfor %}
+        </select><br>
+        <input type="text" placeholder="X COORDINATES" name="x_cood" >
+        <input type="text" placeholder="Y COORDINATES" name="y_cood" ><br>
+        <button onclick="getlocation()">Get Location</button>
+        <p id="lat">here is your location</p><p id="long"></p>
+        <button type="submit" value="search" name="button">Search</button>
+        <br>
+        <ul>
+            {% for service in localService %}
+            <li>
+                name:{{service.Name}}
+                Service:{{service.services}}
+                <br>
+                hire from:<input type="datetime-local" name="from" >
+                hire duration:<select name="duration">
+                    <option value="1">1 hour</option>
+                    <option value="2">2 hour</option>
+                    <option value="3">3 hour</option>
+                </select>
+                <button type="sumbit" value="{{ service.id }}" name="button">hire</button>
+            </li> 
+            {% endfor %}
+        </ul>
+    </form>
+    <script>
+        const getlocation = () => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        let lat = position.coords.latitude;
+                        let long = position.coords.longitude;
+                        document.getElementById("lat").innerHTML = lat;
+                        document.getElementById("long").innerHTML = long;
+                    }
+                )
+                }
+            }
+    </script>
+</body>
+</html>

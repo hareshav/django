@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <label>Enter Name : </label>
+        <input type="text" placeholder="Name" name='name' required><br>
+        local:<input type="radio" name="stype" value="local" checked>
+        global:<input type="radio" name="stype" value="global"><br>
+        <label>Service</label>
+        <select required name="service">
+            {% for service in local %}
+            <option>{{service}}</option>
+            {% endfor %}
+        </select><br>
+        <label>location</label>
+        <input type="text" placeholder="X COORDINATES" name="x_cood" required>
+        <input type="text" placeholder="Y COORDINATES" name="y_cood" required><br>
+        <button onclick="getlocation()">Get Location</button>
+        <p id="lat">here is your location</p><p id="long"></p>
+        <script>
+            const getlocation = () => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        let lat = position.coords.latitude;
+                        let long = position.coords.longitude;
+                        document.getElementById("lat").innerHTML = lat;
+                        document.getElementById("long").innerHTML = long;
+                    })
+                }
+            }
+            </script>
+        <label>Time available:</label><br>
+        <label>From:</label>
+        <input type="time" required name="fromtime">
+        <label>To:</label>
+        <input type="time" required name="totime">
+        <button type="sumbit">Sumbit</button>
+    </form>
+</body>
+</html>
